@@ -9,10 +9,10 @@ import {
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import {
-  contactSchema,
+  createContactSchema,
   updateContactSchema,
 } from '../schema/contactsSchema.js';
-import { isValidId } from '../middlewares/isValidid.js';
+import { isValidId } from '../middlewares/isValidId.js';
 import { auth } from '../middlewares/auth.js';
 
 const router = Router();
@@ -32,7 +32,7 @@ router.get(
 
 router.post(
   '/',
-  validateBody(contactSchema),
+  validateBody(createContactSchema),
   ctrlWrapper(createContactController),
 );
 
