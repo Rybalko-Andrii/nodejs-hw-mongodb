@@ -9,7 +9,7 @@ import {
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import {
-  createContactSchema,
+  contactSchema,
   updateContactSchema,
 } from '../schema/contactsSchema.js';
 import { isValidId } from '../middlewares/isValidid.js';
@@ -32,7 +32,7 @@ router.get(
 
 router.post(
   '/',
-  validateBody(createContactSchema),
+  validateBody(contactSchema),
   ctrlWrapper(createContactController),
 );
 
