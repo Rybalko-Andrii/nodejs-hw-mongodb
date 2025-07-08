@@ -13,7 +13,6 @@ import { parseFilterParams } from '../utils/parseFilterParams.js';
 export const getContactsController = async (
   req,
   res,
-  next,
 ) => {
   const { page, perPage } = parsePaginationParams(
     req.query,
@@ -29,14 +28,8 @@ export const getContactsController = async (
     sortBy,
     sortOrder,
     filter,
+    userId: req.user._id,
   });
-
-  if (!contacts) {
-    throw createHttpError(
-      404,
-      'Contact not found',
-    );
-  }
 
   res.json({
     status: 200,
@@ -50,7 +43,11 @@ export const getContactByIdController = async (
   res,
 ) => {
   const { contactId } = req.params;
-  const contact = await getContactById(contactId);
+
+  const contact = await getContactById(
+    contactId,
+    req.user._id,
+  );
 
   if (!contact) {
     throw createHttpError(
@@ -70,7 +67,11 @@ export const createContactController = async (
   req,
   res,
 ) => {
-  const contact = await createContact(req.body);
+  const contact = await createContact({
+    ...req.body,
+    userId: req.user._id,
+  });
+
   res.status(201).json({
     status: 201,
     message: 'Successfully created a contact',
@@ -81,12 +82,13 @@ export const createContactController = async (
 export const patchContactController = async (
   req,
   res,
-  next,
 ) => {
   const { contactId } = req.params;
+
   const result = await updateContact(
     contactId,
     req.body,
+    req.user._id,
   );
 
   if (!result) {
@@ -99,17 +101,20 @@ export const patchContactController = async (
   res.status(200).json({
     status: 200,
     message: 'Successfully patched a contact!',
-    data: result.contact,
+    data: result,
   });
 };
 
 export const deleteContactController = async (
   req,
   res,
-  next,
 ) => {
   const { contactId } = req.params;
-  const contact = await deleteContact(contactId);
+
+  const contact = await deleteContact(
+    contactId,
+    req.user._id,
+  );
 
   if (!contact) {
     throw createHttpError(
