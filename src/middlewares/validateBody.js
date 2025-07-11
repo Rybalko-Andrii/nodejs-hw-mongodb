@@ -3,6 +3,13 @@ import createHttpError from 'http-errors';
 export const validateBody =
   (schema) => async (req, res, next) => {
     try {
+      const cleanBody = {};
+      for (const key in req.body) {
+        cleanBody[key.trim()] = req.body[key];
+      }
+
+      req.body = cleanBody;
+
       await schema.validateAsync(req.body, {
         abortEarly: false,
       });

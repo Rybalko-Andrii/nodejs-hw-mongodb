@@ -9,6 +9,7 @@ import {
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
+import { processPhotoUpload } from '../utils/processPhotoUpload.js';
 
 export const getContactsController = async (
   req,
@@ -74,9 +75,14 @@ export const createContactController = async (
   req,
   res,
 ) => {
+  const photo = req.file;
+  const photoUrl = await processPhotoUpload(
+    photo,
+  );
   const contact = await createContact({
     ...req.body,
     userId: req.user._id,
+    photo: photoUrl,
   });
   res.status(201).json({
     status: 201,
@@ -91,9 +97,16 @@ export const patchContactController = async (
   next,
 ) => {
   const { contactId } = req.params;
+  const photo = req.files;
+  const photoUrl = await processPhotoUpload(
+    photo,
+  );
   const result = await updateContact(
     contactId,
-    req.body,
+    {
+      ...req.body,
+      photo: photoUrl,
+    },
     req.user._id,
   );
 

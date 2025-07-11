@@ -7,7 +7,10 @@ export const contactSchema = Joi.object({
     .min(3)
     .max(20)
     .required(),
-  isFavourite: Joi.boolean().required(),
+  isFavourite: Joi.boolean()
+    .truthy('true')
+    .falsy('false')
+    .required(),
   contactType: Joi.string()
     .valid('home', 'work', 'personal')
     .required(),
