@@ -97,16 +97,19 @@ export const patchContactController = async (
   next,
 ) => {
   const { contactId } = req.params;
-  const photo = req.files;
-  const photoUrl = await processPhotoUpload(
-    photo,
-  );
+
+  const updates = { ...req.body };
+
+  if (req.file) {
+    const photoUrl = await processPhotoUpload(
+      req.file,
+    );
+    updates.photo = photoUrl;
+  }
+
   const result = await updateContact(
     contactId,
-    {
-      ...req.body,
-      photo: photoUrl,
-    },
+    updates,
     req.user._id,
   );
 
