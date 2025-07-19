@@ -1,0 +1,31 @@
+type: object
+required:
+  - _id
+  - name
+  - phoneNumber
+  - contactType
+properties:
+  _id:
+    description: 'MongoDB ObjectId'
+    type: string
+    example: 686809896ac14799aa90b54a
+  name:
+    type: string
+    example: 'John Doe'
+  phoneNumber:
+    type: string
+    example: '+380730737373'
+  email:
+    type: string
+    example: 'example@mail.com'
+  isFavourite:
+    type: boolean
+    example: false
+  contactType:
+    type: string
+    enum: ['work', 'home', 'personal']
+    example: 'personal'
+  photo:
+    type: string
+    format: uri
+    example: https://res.cloudinary.com/drmxffjdy/image/upload/v123456/photo.png
