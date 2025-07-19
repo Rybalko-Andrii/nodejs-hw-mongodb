@@ -71,7 +71,7 @@ responses:
                 data:
                   type: array
                   items:
-                    $ref: '../../components/schemas/contacts.yaml'
+                    $ref: '../components/schemas/contacts.yaml'
                 page:
                   type: number
                   example: 2
@@ -91,4 +91,4 @@ responses:
                   type: boolean
                   example: true
   '401':
-    $ref: ../../components/responses/401.yaml
+    $ref: ../components/responses/401.yaml
