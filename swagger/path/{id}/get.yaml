@@ -32,6 +32,6 @@ responses:
               example: Successfully found contact with id 686809896ac14799aa90b54a!
             data:
               type: object
-              $ref: ../../../components/schema/contacts.yaml
+              $ref: ../../../components/schemas/contacts.yaml
   '404':
     $ref: ../../../components/responses/404.yaml
