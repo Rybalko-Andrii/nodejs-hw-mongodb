@@ -9,11 +9,7 @@ properties:
     description: 'Contact`s unique ID (MongoDB ObjectId)'
     type: string
     example: 686809896ac14799aa90b54a
-  userId:
-    description: 'ID of the user who owns this contact (MongoDB ObjectId)'
-    type: string
-    example: 686809896ac14799aa90b54a
-    readOnly: true
+
   name:
     description: 'Contact`s name'
     type: string
