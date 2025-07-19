@@ -61,6 +61,6 @@ responses:
               example: Successfully created a contact!
             data:
               type: object
-              $ref: ../../components/schema/contacts.yaml
+              $ref: ../../responses/201.yaml
   '401':
     $ref: ../../components/responses/401.yaml
